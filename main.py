@@ -34,7 +34,7 @@ logger = logging.getLogger(__name__)
 
 def main(args):
    
-
+    print(args)
     if args.gradient_accumulation_steps < 1:
         raise ValueError("Invalid gradient_accumulation_steps parameter: {}, should be >= 1".format(
             args.gradient_accumulation_steps))
