@@ -58,6 +58,8 @@ def main(args):
     data_processor = SequenceLabelingProcessor(task=args.task_name)
     label_list = data_processor.get_labels()
     num_labels = len(label_list) + 1  # add one for IGNORE label
+    print(label_list)
+    break
 
     train_examples = None
     num_train_optimization_steps = 0
