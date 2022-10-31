@@ -124,12 +124,12 @@ def main(args):
 
     
     label_map = {i: label for i, label in enumerate(label_list, 1)}
-    print(label_map)
+    #print(label_map) اعطى لكل label رقم .... بلش من 0 و 1 ....
     if args.do_train:
         train_features = data_processor.convert_examples_to_features(
             train_examples, label_list, args.max_seq_length, model.encode_word)
             
-        print(train_features)
+      #  print(train_features)
 
         if args.self_training:
             self_training_examples = data_processor.get_unlabeled_examples(args.unlabeled_data_dir)
@@ -276,7 +276,7 @@ def main(args):
     model.load_state_dict(state_dict)
     logger.info("Loaded saved model")
 
-    model.to(device)
+   # model.to(device)
 
     if args.do_eval:
         if args.eval_on == "dev":
