@@ -186,7 +186,7 @@ def main(args):
                     disable=args.no_pbar)
                 
                 
-               # model.train()
+                model.train()
                 for step, batch in enumerate(tbar):
                     batch = tuple(t.to(device) for t in batch)
                     input_ids, label_ids, l_mask, valid_ids, = batch
