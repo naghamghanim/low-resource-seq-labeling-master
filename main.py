@@ -186,7 +186,7 @@ def main(args):
                     disable=args.no_pbar)
                 
                 
-                model.train()
+               # model.train()
                 for step, batch in enumerate(tbar):
                     batch = tuple(t.to(device) for t in batch)
                     input_ids, label_ids, l_mask, valid_ids, = batch
@@ -276,7 +276,7 @@ def main(args):
     model.load_state_dict(state_dict)
     logger.info("Loaded saved model")
 
-   # model.to(device)
+    model.to(device)
 
     if args.do_eval:
         if args.eval_on == "dev":
