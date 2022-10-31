@@ -58,7 +58,7 @@ def main(args):
     label_list = data_processor.get_labels() # the output is ["O", "B-PERS", "I-PERS", "B-ORG", "I-ORG", "B-LOC", "I-LOC", "U"]
     num_labels = len(label_list) + 1  # add one for IGNORE label
     
-    print(label_list)
+   # print(label_list)
     
 
     train_examples = None
@@ -66,10 +66,11 @@ def main(args):
 
     if args.do_train:
         train_examples = data_processor.get_train_examples(args.data_dir)
+        print(train_examples)
         num_train_optimization_steps = int(
             len(train_examples) / args.train_batch_size / args.gradient_accumulation_steps) * args.num_train_epochs
             
-    print(num_train_optimization_steps)
+   # print(num_train_optimization_steps) 950
     
             # preparing model configs
     hidden_size = 768 if 'base' in args.pretrained_path else 1024 # TODO: move this inside model.__init__
