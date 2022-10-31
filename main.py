@@ -124,9 +124,12 @@ def main(args):
 
     
     label_map = {i: label for i, label in enumerate(label_list, 1)}
+    print(label_map)
     if args.do_train:
         train_features = data_processor.convert_examples_to_features(
             train_examples, label_list, args.max_seq_length, model.encode_word)
+            
+    print(train_features)
 
         if args.self_training:
             self_training_examples = data_processor.get_unlabeled_examples(args.unlabeled_data_dir)
