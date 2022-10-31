@@ -66,7 +66,6 @@ def main(args):
 
     if args.do_train:
         train_examples = data_processor.get_train_examples(args.data_dir)
-        print(train_examples)
         num_train_optimization_steps = int(
             len(train_examples) / args.train_batch_size / args.gradient_accumulation_steps) * args.num_train_epochs
             
