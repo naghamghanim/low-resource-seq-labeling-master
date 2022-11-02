@@ -204,7 +204,7 @@ def get_top_confidence_samples_seq_labeling(model, features, batch_size=16,  K=4
         rest_idx = (confidences < K)
      
      rest_idx = torch.tensor([i for i in range(len(confidences)) if i not in top_k_idx]).long()
-        
+       #select data to be added
      selected_ids = all_input_ids[top_k_idx].cpu().numpy().tolist()
      selected_lbls = predictions[top_k_idx].cpu().numpy().tolist()
      selected_masks = all_lmask_ids[top_k_idx].cpu().numpy().tolist()
@@ -222,7 +222,7 @@ def get_top_confidence_samples_seq_labeling(model, features, batch_size=16,  K=4
      non_selected_valid = all_valid_ids[rest_idx].cpu().numpy().tolist()
      
      for ids, lbls, msks, valids in zip(non_selected_ids, non_selected_lbls, non_selected_masks, non_selected_valid):
-         #print(lbls)
+         print(lbls)
          rest_features.append(InputFeatures(input_ids=ids, label_id=lbls, label_mask=msks, valid_ids=valids))
     
      print(len(rest_features))
