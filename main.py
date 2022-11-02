@@ -135,13 +135,18 @@ def main(args):
             self_training_examples = data_processor.get_unlabeled_examples(args.unlabeled_data_dir)
             self_training_features = data_processor.convert_examples_to_features(self_training_examples, label_list, args.max_seq_length, model.encode_word) 
             
-            logging.info("Loaded {} Unlabeled examples".format(len(self_training_examples)))
+            print("Loaded {} Unlabeled examples".format(len(self_training_examples)))
+            #logging.info("Loaded {} Unlabeled examples".format(len(self_training_examples)))
 
 
-        logger.info("***** Running training *****")
-        logger.info("  Num examples = %d", len(train_examples))
-        logger.info("  Batch size = %d", args.train_batch_size)
-        logger.info("  Num steps = %d", num_train_optimization_steps)
+       # logger.info("***** Running training *****")
+       # logger.info("  Num examples = %d", len(train_examples))
+       # logger.info("  Batch size = %d", args.train_batch_size)
+       # logger.info("  Num steps = %d", num_train_optimization_steps)
+        print("***** Running training *****")
+        print("  Num examples = %d", len(train_examples))
+        print("  Batch size = %d", args.train_batch_size)
+        print("  Num steps = %d", num_train_optimization_steps)
 
         train_data = create_ner_dataset(train_features)
         train_sampler = RandomSampler(train_data)
@@ -182,6 +187,7 @@ def main(args):
 
                 
                 tr_loss = 0
+                #progress bar
                 tbar = tqdm(train_dataloader, desc="Iteration", 
                     disable=args.no_pbar)
                 
