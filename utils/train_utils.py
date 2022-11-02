@@ -184,7 +184,8 @@ def get_top_confidence_samples_seq_labeling(model, features, batch_size=16,  K=4
         # mean 
         #prediction_prob[~l_mask.bool()] = 0 # so they would be ignored by sum
         #min_confidence = prediction_prob.sum(dim=-1) / l_mask.sum(dim=-1)
-
+        print(predictions)
+        print(confidences)
         predictions.append(predicted_labels)
         confidences.append(min_confidence)
  
