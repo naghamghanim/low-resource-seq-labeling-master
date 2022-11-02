@@ -134,7 +134,6 @@ def main(args):
         if args.self_training:
             self_training_examples = data_processor.get_unlabeled_examples(args.unlabeled_data_dir)
             self_training_features = data_processor.convert_examples_to_features(self_training_examples, label_list, args.max_seq_length, model.encode_word) 
-            
             print("Loaded {} Unlabeled examples".format(len(self_training_examples)))
             #logging.info("Loaded {} Unlabeled examples".format(len(self_training_examples)))
 
@@ -239,6 +238,7 @@ def main(args):
                 #    logger.info("\nNo better F1 score: {}\n".format(f1))
                     patience+=1
             
+            print(patience)
             ######################################################################
             if not args.self_training:
                 break
