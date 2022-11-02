@@ -219,26 +219,32 @@ def main(args):
                        model.zero_grad()
                 
                     tbar.set_description('Loss = %.4f' %(tr_loss / (step+1)))
+                print("Evaluating on validation set...\n")    
                 logger.info("Evaluating on validation set...\n")
                 #torch.save(model.state_dict(), open(os.path.join(args.output_dir, 'model.pt'), 'wb'))
                 f1, report = evaluate_model_seq_labeling(model, val_data, label_list, args.eval_batch_size, args.use_crf, device)
                 if f1 > best_val_f1:
                     best_val_f1 = f1
-                    logger.info("\nFound better f1=%.4f on validation set. Saving model\n" %(f1))
-                    logger.info("\n%s\n" %(report))
+                    print("\nFound better f1=%.4f on validation set. Saving model\n" %(f1))
+                    print("\n%s\n" %(report))
+                    
+                    #logger.info("\nFound better f1=%.4f on validation set. Saving model\n" %(f1))
+                    #logger.info("\n%s\n" %(report))
                     
                     torch.save(model.state_dict(), open(os.path.join(args.output_dir, 'model.pt'), 'wb'))
                     patience=0
                 
                 else :
-                    logger.info("\nNo better F1 score: {}\n".format(f1))
+                    print("\nNo better F1 score: {}\n".format(f1))    
+                #    logger.info("\nNo better F1 score: {}\n".format(f1))
                     patience+=1
             
             ######################################################################
             if not args.self_training:
                 break
             if patience >= args.patience:
-                logger.info("No more patience. Existing")
+                print("No more patience. Existing")
+               # logger.info("No more patience. Existing")
                 break
             ## get confidence and update train_data, train_dataloader
             # convert unlabeled examples to features 
@@ -252,7 +258,9 @@ def main(args):
             for f in confident_features:
                 l_ids = f.label_id
                 l_s = [label_map[i] for i in l_ids]
-            logging.info("Got %d confident samples"%(len(confident_features)))
+            
+            print("Got %d confident samples"%(len(confident_features)))            
+            #logging.info("Got %d confident samples"%(len(confident_features)))
             # append new features 
             #train_features = data_processor.convert_examples_to_features(
             #         train_examples, label_list, args.max_seq_length, model.encode_word)
@@ -280,6 +288,8 @@ def main(args):
     # load best/ saved model
     state_dict = torch.load(open(os.path.join(args.output_dir, 'model.pt'), 'rb'))
     model.load_state_dict(state_dict)
+    
+    print("Loaded saved model")
     logger.info("Loaded saved model")
 
     model.to(device)
