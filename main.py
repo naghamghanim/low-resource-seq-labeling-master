@@ -48,13 +48,19 @@ def main(args):
         raise ValueError(
             "At least one of `do_train` or `do_eval` must be True.")
 
+    #check for output directory to save the model
     if os.path.exists(args.output_dir) and os.listdir(args.output_dir) and args.do_train:
         raise ValueError(
             "Output directory ({}) already exists and is not empty.".format(args.output_dir))
     if not os.path.exists(args.output_dir):
         os.makedirs(args.output_dir)
 
+
+    
     data_processor = SequenceLabelingProcessor(task=args.task_name)
+    
+    print(data_processor)
+    
     label_list = data_processor.get_labels() # the output is ["O", "B-PERS", "I-PERS", "B-ORG", "I-ORG", "B-LOC", "I-LOC", "U"]
     num_labels = len(label_list) + 1  # add one for IGNORE label
     
