@@ -141,7 +141,8 @@ def main(args):
             train_examples, label_list, args.max_seq_length, model.encode_word)
             
       #  print(train_features)
-         print(args.self_training)
+        print("self training parameter")   
+        print(args.self_training)
 
         if args.self_training:
             print("Self training")
