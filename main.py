@@ -48,14 +48,13 @@ def main(args):
         raise ValueError(
             "At least one of `do_train` or `do_eval` must be True.")
     
-    #************ don't forget to return it*****************
     #check for output directory to save the model
     
-   # if os.path.exists(args.output_dir) and os.listdir(args.output_dir) and args.do_train:
-   #     raise ValueError(
+    if os.path.exists(args.output_dir) and os.listdir(args.output_dir) and args.do_train:
+        raise ValueError(
             "Output directory ({}) already exists and is not empty.".format(args.output_dir))
-   # if not os.path.exists(args.output_dir):
-   #     os.makedirs(args.output_dir)
+    if not os.path.exists(args.output_dir):
+        os.makedirs(args.output_dir)
 
 
     
