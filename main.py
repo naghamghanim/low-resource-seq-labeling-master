@@ -77,7 +77,7 @@ def main(args):
         num_train_optimization_steps = int(
             len(train_examples) / args.train_batch_size / args.gradient_accumulation_steps) * args.num_train_epochs
     
-    print ("Number of train examples".format(len(train_examples)) 
+    print ("Number of train examples".format(len(train_examples))) 
    
             
     hidden_size = 768 if 'base' in args.pretrained_path else 1024 # TODO: move this inside model.__init__
