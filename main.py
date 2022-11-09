@@ -47,35 +47,38 @@ def main(args):
     if not args.do_train and not args.do_eval:
         raise ValueError(
             "At least one of `do_train` or `do_eval` must be True.")
-
+    
+    #************ don't forget to return it*****************
     #check for output directory to save the model
-    if os.path.exists(args.output_dir) and os.listdir(args.output_dir) and args.do_train:
-        raise ValueError(
+    
+   # if os.path.exists(args.output_dir) and os.listdir(args.output_dir) and args.do_train:
+   #     raise ValueError(
             "Output directory ({}) already exists and is not empty.".format(args.output_dir))
-    if not os.path.exists(args.output_dir):
-        os.makedirs(args.output_dir)
+   # if not os.path.exists(args.output_dir):
+   #     os.makedirs(args.output_dir)
 
 
     
     data_processor = SequenceLabelingProcessor(task=args.task_name)
     
-    print(data_processor)
+   # print(data_processor)
     
-    label_list = data_processor.get_labels() # the output is ["O", "B-PERS", "I-PERS", "B-ORG", "I-ORG", "B-LOC", "I-LOC", "U"]
+    label_list = data_processor.get_labels() # 
     num_labels = len(label_list) + 1  # add one for IGNORE label
     
-   # print(label_list)
+   # print(label_list) #the output is ["O", "B-PERS", "I-PERS", "B-ORG", "I-ORG", "B-LOC", "I-LOC", "U"]
     
 
     train_examples = None
     num_train_optimization_steps = 0
 
     if args.do_train:
+        print("Get train examples")
         train_examples = data_processor.get_train_examples(args.data_dir)
         num_train_optimization_steps = int(
             len(train_examples) / args.train_batch_size / args.gradient_accumulation_steps) * args.num_train_epochs
             
-   # print(num_train_optimization_steps) 950
+    print(num_train_optimization_steps) # 950
     
             # preparing model configs
     hidden_size = 768 if 'base' in args.pretrained_path else 1024 # TODO: move this inside model.__init__
@@ -132,6 +135,7 @@ def main(args):
     label_map = {i: label for i, label in enumerate(label_list, 1)}
     #print(label_map) اعطى لكل label رقم .... بلش من 0 و 1 ....
     if args.do_train:
+        print("Convert examples into features")    
         train_features = data_processor.convert_examples_to_features(
             train_examples, label_list, args.max_seq_length, model.encode_word)
             

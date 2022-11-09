@@ -82,7 +82,9 @@ class SequenceClassificationProcessor:
     def convert_examples_to_features(self, examples, label_list, max_seq_length, encode_sent_method):
 
         labels = list(set([e.label for e in examples]))
-        logging.info("labels = {}".format(labels))
+        
+        print("labels = {}".format(labels))
+        #logging.info("labels = {}".format(labels))
 
         label_map= {label_list[i]:i for i in range(len(label_list))}
         
@@ -102,6 +104,7 @@ class SequenceClassificationProcessor:
         return features
 
 
+# 1- in fine-tuning
 class SequenceLabelingProcessor:
     """Processor for the CoNLL-2003 data set."""
     def __init__(self, task):
