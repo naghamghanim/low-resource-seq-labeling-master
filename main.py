@@ -76,7 +76,8 @@ def main(args):
         train_examples = data_processor.get_train_examples(args.data_dir)
         num_train_optimization_steps = int(
             len(train_examples) / args.train_batch_size / args.gradient_accumulation_steps) * args.num_train_epochs
-            
+    
+    print ("Number of train examples".format(len(train_examples)) 
     print(num_train_optimization_steps) # 950
     
             # preparing model configs
