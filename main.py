@@ -78,9 +78,10 @@ def main(args):
             len(train_examples) / args.train_batch_size / args.gradient_accumulation_steps) * args.num_train_epochs
     
     print ("Number of train examples".format(len(train_examples)) 
-    print(num_train_optimization_steps) # 950
-    
-            # preparing model configs
+   #cf print(num_train_optimization_steps) # 950
+ 
+#***********************************preparing model configs*********************************************
+            
     hidden_size = 768 if 'base' in args.pretrained_path else 1024 # TODO: move this inside model.__init__
 
     device = 'cuda' if (torch.cuda.is_available() and not args.no_cuda) else 'cpu'
@@ -96,7 +97,7 @@ def main(args):
                                        dropout_p=args.dropout, device=device)
 
     model.to(device)
-
+#**************************************************************************************************
     if args.load_model is not None:
         logging.info("Loading saved model {}".format(args.load_model))
         state_dict = torch.load(args.load_model)
@@ -140,8 +141,10 @@ def main(args):
             train_examples, label_list, args.max_seq_length, model.encode_word)
             
       #  print(train_features)
+         print(args.self_training)
 
         if args.self_training:
+            print("Self training")
             self_training_examples = data_processor.get_unlabeled_examples(args.unlabeled_data_dir)
             self_training_features = data_processor.convert_examples_to_features(self_training_examples, label_list, args.max_seq_length, model.encode_word) 
             print("Loaded {} Unlabeled examples".format(len(self_training_examples)))
